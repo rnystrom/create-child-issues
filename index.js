@@ -47,12 +47,18 @@ async function run() {
   const client = new github.GitHub(token);
   for (let i = 0; i < repos.length; i++) {
     try {
+      // const issueCreateResponse = await client.issues.create({
+      //   owner: repos[i].owner,
+      //   repo: repos[i].name,
+      //   title: issue.title,
+      //   body: `Child task of ${issue.html_url}`,
+      //   labels: core.getInput('add-labels').split(',').map(l => {return {name: l};})
+      // });
       const issueCreateResponse = await client.issues.create({
         owner: repos[i].owner,
         repo: repos[i].name,
         title: issue.title,
-        body: `Child task of ${issue.html_url}`,
-        labels: core.getInput('add-labels').split(',').map(l => {return {name: l};})
+        body: `Child task of ${issue.html_url}`
       });
       console.log(`Created issue: ${issueCreateResponse.data.html_url}`);
       checklists.push(`- [ ] ${issueCreateResponse.data.html_url}`);
