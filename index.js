@@ -51,7 +51,7 @@ async function run() {
       const issueCreateResponse = await client.issues.create({
         owner: repos[i].owner,
         repo: repos[i].name,
-        title: issue.title,
+        title: `[child] ${issue.title}`,
         body: `Child task of ${issue.html_url}`,
         labels: core.getInput('add-labels').split(',').filter(l => l.length > 1).map(l => {return {name: l};})
       });
