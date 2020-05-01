@@ -47,6 +47,7 @@ async function run() {
   const client = new github.GitHub(token);
   for (let i = 0; i < repos.length; i++) {
     try {
+      console.log(`Creating child issue in ${repos[i].owner}/${repos[i].name}...`)
       const issueCreateResponse = await client.issues.create({
         owner: repos[i].owner,
         repo: repos[i].name,
@@ -61,14 +62,17 @@ async function run() {
     }
   }
 
-  var fetchedBody = ""
+  var fetchedLabels = [];
+  var fetchedBody = "";
   try {
+    console.log('Getting latest issue body...');
     const issueGetResponse = await client.issues.get({
       owner: github.context.payload.repository.owner.login,
       repo: github.context.payload.repository.name,
       issue_number: issue.number,
     });
     fetchedBody = issueGetResponse.data.body;
+    fetchedLabels = issueGetResponse.data.labels;
   } catch (error) {
     core.setFailed(`Failed getting the latest issue body: ${error}`)
   }  
@@ -90,7 +94,7 @@ async function run() {
       issue_number: issue.number,
       body: newBody,
       // remove the input label from the issue
-      labels: issue.labels.filter(l => l.name != label)
+      labels: fetchedLabels.filter(l => l.name != label)
     })
   } catch (error) {
     core.setFailed(`Failed updating parent issue: ${error}`)
