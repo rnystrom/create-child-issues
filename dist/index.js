@@ -564,7 +564,7 @@ async function run() {
       owner: github.context.payload.repository.owner.login,
       repo: github.context.payload.repository.name,
       issue_number: issue.number,
-      body: issue.body.concat(`\n\n<hr />\n\n#### Child issues\n\n${checklists.join('\n')}`),
+      body: issue.body.concat(`\n\n<hr />\n\n#### Generated child issues:\n\n${checklists.join('\n')}`),
       // remove the input label from the issue
       labels: issue.labels.filter(l => l.name != label)
     })
