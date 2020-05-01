@@ -52,7 +52,7 @@ async function run() {
         repo: repos[i].name,
         title: issue.title,
         body: `Child task of ${issue.html_url}`,
-        labels: core.getInput('add-labels').split(',').map(l => {name: l})
+        labels: core.getInput('add-labels').split(',').map(l => {return {name: l};})
       });
       console.log(`Created issue: ${issueCreateResponse.data.html_url}`);
       checklists.push(`- [ ] ${issueCreateResponse.data.html_url}`);
