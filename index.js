@@ -19,7 +19,7 @@ async function run() {
   }
 
   // need a token to init the client
-  const token = process.env['GITHUB_TOKEN'];
+  const token = core.getInput('github_token', { required: true });
   if (!token) {
     core.setFailed("No GITHUB_TOKEN environment variable found");
     return;
@@ -66,7 +66,7 @@ async function run() {
       owner: github.context.payload.repository.owner.login,
       repo: github.context.payload.repository.name,
       issue_number: issue.number,
-      body: `#### Child issues\n\n${checklists.join('\n')}`,
+      body: issue.body.concat(`\n\n<hr />\n\n#### Child issues\n\n${checklists.join('\n')}`),
       // remove the input label from the issue
       labels: issue.labels.filter(l => l.name != label)
     })
