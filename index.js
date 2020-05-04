@@ -1,16 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-// const wait = require('./wait');
 
-// most @actions toolkit packages have async methods
 async function run() {
-  // check that the input label exists and is reason the action is triggered
-  const label = core.getInput('label');
-  if (github.context.payload.label.name != label) {
-    console.log(`Input label ${label} not found. Bailing.`);
-    return;
-  }
-
   // get the issue from the payload
   const issue = github.context.payload.issue
   if (!issue) {
@@ -92,9 +83,7 @@ async function run() {
       owner: github.context.payload.repository.owner.login,
       repo: github.context.payload.repository.name,
       issue_number: issue.number,
-      body: newBody,
-      // remove the input label from the issue
-      labels: fetchedLabels.filter(l => l.name != label)
+      body: newBody
     })
   } catch (error) {
     core.setFailed(`Failed updating parent issue: ${error}`)

@@ -1,14 +1,11 @@
 name: 'Create child issues'
 description: 'Create child issues using labels'
 inputs:
-  label:
-    description: 'The label that triggers the event'
-    required: true
   repos:
     description: 'A comma-separated list of owner/name repositories to create the child issues'
     required: true
   add-labels:
-    description: 'Optional labels to add to the new child issues'
+    description: 'Optional comma-separated labels to add to the new child issues'
     required: false
     default: ''
   github_token:
