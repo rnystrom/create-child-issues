@@ -514,7 +514,7 @@ async function run() {
     return;
   }
 
-  const prefix = core.getInput('child-prefix', { required: true });
+  var prefix = core.getInput('child-prefix', { required: true });
   if (!prefix) {
     core.setFailed("No child prefix found");
     return;
@@ -562,7 +562,6 @@ async function run() {
     }
   }
 
-  var fetchedLabels = [];
   var fetchedBody = "";
   try {
     console.log('Getting latest issue body...');
@@ -572,7 +571,6 @@ async function run() {
       issue_number: issue.number,
     });
     fetchedBody = issueGetResponse.data.body;
-    fetchedLabels = issueGetResponse.data.labels;
   } catch (error) {
     core.setFailed(`Failed getting the latest issue body: ${error}`)
   }  
