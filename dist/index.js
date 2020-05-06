@@ -522,7 +522,7 @@ async function run() {
 
   // if there's a prefix, make sure to add a space
   if (prefix.length > 0) {
-    prefix = concat(prefix.trim(), ' ')
+    prefix = prefix.trim() + ' '
   }
 
   // build an array of repos like {owner, name}
