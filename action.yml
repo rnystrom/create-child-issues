@@ -11,7 +11,7 @@ inputs:
   child-prefix:
     description: 'A string to prefix to each child issue'
     required: true
-    default: '[child] '
+    default: ''
   github_token:
     description: 'Token to use for authenticated GitHub API requests'
     required: false

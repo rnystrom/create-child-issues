@@ -22,6 +22,11 @@ async function run() {
     return;
   }
 
+  // if there's a prefix, make sure to add a space
+  if (prefix.length > 0) {
+    prefix = concat(prefix.trim(), ' ')
+  }
+
   // build an array of repos like {owner, name}
   const reposRaw = core.getInput('repos');
   const nwoList = reposRaw.split(',');
