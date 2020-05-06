@@ -16,6 +16,12 @@ async function run() {
     return;
   }
 
+  const prefix = core.getInput('child-prefix', { required: true });
+  if (!prefix) {
+    core.setFailed("No child prefix found");
+    return;
+  }
+
   // build an array of repos like {owner, name}
   const reposRaw = core.getInput('repos');
   const nwoList = reposRaw.split(',');
@@ -42,7 +48,7 @@ async function run() {
       const issueCreateResponse = await client.issues.create({
         owner: repos[i].owner,
         repo: repos[i].name,
-        title: `[child] ${issue.title}`,
+        title: `${prefix}${issue.title}`,
         body: `Child task of ${issue.html_url}`,
         labels: core.getInput('add-labels').split(',').filter(l => l.length > 1).map(l => {return {name: l};})
       });

@@ -8,6 +8,10 @@ inputs:
     description: 'Optional comma-separated labels to add to the new child issues'
     required: false
     default: ''
+  child-prefix:
+    description: 'A string to prefix to each child issue'
+    required: true
+    default: '[child] '
   github_token:
     description: 'Token to use for authenticated GitHub API requests'
     required: false
